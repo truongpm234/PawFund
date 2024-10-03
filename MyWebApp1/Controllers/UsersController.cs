@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using MyWebApp1.Data;
 using MyWebApp1.Models;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
+using MyWebApp1.Services;
 
 namespace MyWebApp1.Controllers
 {
@@ -14,38 +10,25 @@ namespace MyWebApp1.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly MyDbContext dbContext;
-        private readonly IConfiguration configuration;
-        public UsersController(MyDbContext dbContext, IConfiguration configuration)
+        private readonly UserService _userService;
+
+        public UsersController(UserService userService)
         {
-            this.dbContext = dbContext;
-            this.configuration = configuration;
+            _userService = userService;
         }
 
         [HttpPost]
         [Route("Registration")]
         public IActionResult Registration(UserDTO userDTO)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                var result = _userService.Register(userDTO);
+                return Ok(result);
             }
-            var objUser = dbContext.Users.FirstOrDefault(x => x.Email == userDTO.Email);
-            if (objUser == null)
+            catch (Exception ex)
             {
-                dbContext.Users.Add(new Models.User
-                {
-                    FirstName = userDTO.FirstName,
-                    LastName = userDTO.LastName,
-                    Email = userDTO.Email,
-                    Password = userDTO.Password,
-                });
-                dbContext.SaveChanges();
-                return Ok("User registered success.");
-            }
-            else
-            {
-                return BadRequest("User already exist with same email.");
+                return BadRequest(ex.Message);
             }
         }
 
@@ -53,85 +36,50 @@ namespace MyWebApp1.Controllers
         [Route("Login")]
         public IActionResult Login(LoginDTO loginDTO)
         {
-            var user = dbContext.Users.FirstOrDefault(x => x.Email == loginDTO.Email && x.Password == loginDTO.Password);
-            if (user != null)
+            try
             {
-                var claims = new[]
-                {
-                    new Claim(JwtRegisteredClaimNames.Sub, configuration["Jwt:subject"]),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                    new Claim("UserId", user.UserId.ToString()),
-                    new Claim("Email", user.Email.ToString()),
-
-                };
-
-                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
-                var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-                var token = new JwtSecurityToken(
-                    configuration["Jwt:issuer"],
-                    configuration["Jwt:Audience"],
-                    claims,
-                    expires : DateTime.UtcNow.AddMinutes(60),
-                    signingCredentials: signIn
-                    );
-
-                string tokenValue = new JwtSecurityTokenHandler().WriteToken(token);
-                return Ok(new { Token = tokenValue, User = user });
-
-
-                //return Ok(user);
+                var token = _userService.Login(loginDTO);
+                return Ok(new { Token = token });
             }
-            return NoContent();
+            catch (Exception ex)
+            {
+                return Unauthorized(ex.Message);
+            }
         }
-
+        [Authorize]
         [HttpGet]
         [Route("GetUsers")]
         public IActionResult GetUsers()
         {
-            return Ok(dbContext.Users.ToList());
+            return Ok(_userService.GetUsers());
         }
 
-
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         [Route("GetUser")]
         public IActionResult GetUser(int id)
         {
-            var user = dbContext.Users.FirstOrDefault(x => x.UserId == id);
+            var user = _userService.GetUser(id);
             if (user != null)
                 return Ok(user);
             else
                 return NoContent();
         }
 
-
+        [Authorize]
         [HttpPut]
         [Route("UpdateProfile")]
         public IActionResult UpdateProfile(int userId, UserDTO userDTO)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                var result = _userService.UpdateProfile(userId, userDTO);
+                return Ok(result);
             }
-            var userToUpdate = dbContext.Users.FirstOrDefault(x => x.UserId == userId);
-            if (userToUpdate == null)
+            catch (Exception ex)
             {
-                return NotFound("User not found.");
+                return BadRequest(ex.Message);
             }
-            // update user
-            userToUpdate.FirstName = userDTO.FirstName;
-            userToUpdate.LastName = userDTO.LastName;
-            userToUpdate.Email = userDTO.Email;
-            // update password
-            if (!string.IsNullOrEmpty(userDTO.Password))
-            {
-                userToUpdate.Password = userDTO.Password;
-            }
-            dbContext.Users.Update(userToUpdate);
-            dbContext.SaveChanges();
-
-            return Ok("User profile update success.");
         }
     }
-
 }
