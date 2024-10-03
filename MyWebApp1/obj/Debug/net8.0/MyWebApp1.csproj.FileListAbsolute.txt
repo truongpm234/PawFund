@@ -277,3 +277,10 @@ E:\SE_FALL2024_S5\SWP391\PawFund\MyWebApp1\MyWebApp1\obj\Debug\net8.0\MyWebApp1.
 E:\SE_FALL2024_S5\SWP391\PawFund\MyWebApp1\MyWebApp1\obj\Debug\net8.0\MyWebApp1.genruntimeconfig.cache
 E:\SE_FALL2024_S5\SWP391\PawFund\MyWebApp1\MyWebApp1\obj\Debug\net8.0\ref\MyWebApp1.dll
 E:\SE_FALL2024_S5\SWP391\PawFund\MyWebApp1\MyWebApp1\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+E:\SE_FALL2024_S5\SWP391\PawFund\MyWebApp1\MyWebApp1\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.Google.dll
+E:\SE_FALL2024_S5\SWP391\PawFund\MyWebApp1\MyWebApp1\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+E:\SE_FALL2024_S5\SWP391\PawFund\MyWebApp1\MyWebApp1\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+E:\SE_FALL2024_S5\SWP391\PawFund\MyWebApp1\MyWebApp1\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+E:\SE_FALL2024_S5\SWP391\PawFund\MyWebApp1\MyWebApp1\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
+E:\SE_FALL2024_S5\SWP391\PawFund\MyWebApp1\MyWebApp1\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
+E:\SE_FALL2024_S5\SWP391\PawFund\MyWebApp1\MyWebApp1\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
