@@ -1,6 +1,16 @@
 [
   {
     "ContainingType": "MyWebApp1.Controllers.UsersController",
+    "Method": "GetCurrentLoginUser",
+    "RelativePath": "api/Users/GetCurrentLoginUser",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MyWebApp1.Controllers.UsersController",
     "Method": "GetUser",
     "RelativePath": "api/Users/GetUser",
     "HttpMethod": "GET",
