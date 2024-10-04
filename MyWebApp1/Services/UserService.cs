@@ -31,7 +31,7 @@ namespace MyWebApp1.Services
                 FirstName = userDTO.FirstName,
                 LastName = userDTO.LastName,
                 Email = userDTO.Email,
-                Password = userDTO.Password, // Sử dụng băm mật khẩu tại đây
+                Password = userDTO.Password,
             };
 
             _dbContext.Users.Add(newUser);
