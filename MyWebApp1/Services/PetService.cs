@@ -13,9 +13,9 @@ namespace MyWebApp1.Services
             _context = context;
         }
 
-        public Pet AddNewPet(PetDTO petDTO)
+        public Entities.Pet AddNewPet(Models.PetDTO petDTO)
         {
-            var pet = new Pet
+            var pet = new Entities.Pet
             {
                 PetName = petDTO.PetName,
                 PetType = petDTO.PetType,

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyWebApp1.Models;
 using MyWebApp1.Services;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 
 namespace MyWebApp1.Controllers
 {
@@ -35,11 +36,11 @@ namespace MyWebApp1.Controllers
 
         [HttpPost]
         [Route("Login")]
-        public IActionResult Login(LoginDTO loginDTO)
+        public IActionResult Login(Login login)
         {
             try
             {
-                var token = _userService.Login(loginDTO);
+                var token = _userService.Login(login);
                 return Ok(new { Token = token });
             }
             catch (Exception ex)
@@ -47,6 +48,7 @@ namespace MyWebApp1.Controllers
                 return Unauthorized(ex.Message);
             }
         }
+
         [Authorize]
         [HttpGet]
         [Route("GetUsers")]
@@ -111,7 +113,7 @@ namespace MyWebApp1.Controllers
                     return Unauthorized("UserId not found in token.");
                 }
 
-                // Lấy userId từ claim
+                // Lấy userId
                 var userId = int.Parse(userIdClaim.Value);
 
                 // Tìm người dùng từ cơ sở dữ liệu dựa trên userId
@@ -122,9 +124,10 @@ namespace MyWebApp1.Controllers
                     // Trả về thông tin người dùng
                     var userInfo = new
                     {
-                        FirstName = user.FirstName,
-                        LastName = user.LastName,
-                        Email = user.Email
+                        Fullname = user.Fullname, 
+                        Email = user.Email,
+                        PhoneNumber = user.PhoneNumber,
+                        Address = user.Address
                     };
                     return Ok(userInfo);
                 }
@@ -138,6 +141,5 @@ namespace MyWebApp1.Controllers
                 return BadRequest("Error processing request: " + ex.Message);
             }
         }
-
     }
 }
