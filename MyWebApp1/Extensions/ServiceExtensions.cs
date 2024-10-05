@@ -23,6 +23,12 @@ namespace MyWebApp1.Extensions
             services.AddSwaggerAuthentication();
             services.AddScoped<UserService>();
 
+            services.AddLogging(config =>
+            {
+                config.AddConsole(); // Thêm ghi log vào console
+                config.AddDebug(); // Thêm ghi log vào debug
+            });
+
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

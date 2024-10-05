@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using MyWebApp1.Models.MyWebApp1.Entities;
 
 namespace MyWebApp1.Services
 {
@@ -20,28 +21,43 @@ namespace MyWebApp1.Services
 
         public string Register(UserDTO userDTO)
         {
-            var objUser = _dbContext.Users.FirstOrDefault(x => x.Email == userDTO.Email);
-            if (objUser != null)
+            try
             {
-                throw new Exception("User already exists with same email.");
+                // Kiểm tra xem Email hoặc Username đã tồn tại hay chưa
+                if (_dbContext.Users.Any(u => u.Email == userDTO.Email || u.Username == userDTO.Username))
+                {
+                    return "Username or Email already exists.";
+                }
+
+                var newUser = new User
+                {
+                    Username = userDTO.Username,
+                    Fullname = userDTO.Fullname,
+                    Email = userDTO.Email,
+                    PhoneNumber = userDTO.PhoneNumber,
+                    Address = userDTO.Address,
+                    Password = userDTO.Password,
+                    IsApprovedUser = false,
+                    IsApproved = false,
+                    CreatedAt = DateTime.Now
+                };
+
+                _dbContext.Users.Add(newUser);
+                _dbContext.SaveChanges();
+
+                return "User registered successfully.";
             }
-
-            var newUser = new User
+            catch (Exception ex)
             {
-                FirstName = userDTO.FirstName,
-                LastName = userDTO.LastName,
-                Email = userDTO.Email,
-                Password = userDTO.Password,
-            };
-
-            _dbContext.Users.Add(newUser);
-            _dbContext.SaveChanges();
-
-            return "User registered successfully.";
+                // Ghi log lỗi (nên sử dụng framework ghi log)
+                Console.WriteLine(ex.Message);
+                return $"An error occurred: {ex.Message}";
+            }
         }
 
-        public string Login(LoginDTO loginDTO)
+        public string Login(Login loginDTO)
         {
+            // Tìm người dùng theo Email và mật khẩu
             var user = _dbContext.Users.FirstOrDefault(x => x.Email == loginDTO.Email && x.Password == loginDTO.Password); // Băm mật khẩu tại đây
             if (user == null)
             {
@@ -87,20 +103,21 @@ namespace MyWebApp1.Services
                 throw new Exception("User not found.");
             }
 
-            userToUpdate.FirstName = userDTO.FirstName;
-            userToUpdate.LastName = userDTO.LastName;
+            userToUpdate.Fullname = userDTO.Fullname;  // Cập nhật Fullname
             userToUpdate.Email = userDTO.Email;
+            userToUpdate.PhoneNumber = userDTO.PhoneNumber;
+            userToUpdate.Address = userDTO.Address;
 
-            // Update password
+            // Cập nhật mật khẩu nếu có
             if (!string.IsNullOrEmpty(userDTO.Password))
             {
-                userToUpdate.Password = userDTO.Password; // Sử dụng băm mật khẩu tại đây
+                userToUpdate.Password = userDTO.Password; // Lưu mật khẩu mà không băm
             }
 
             _dbContext.Users.Update(userToUpdate);
             _dbContext.SaveChanges();
 
-            return "User profile update success.";
+            return "User profile updated successfully.";
         }
     }
 }

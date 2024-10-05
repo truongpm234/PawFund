@@ -284,3 +284,5 @@ E:\SE_FALL2024_S5\SWP391\PawFund\MyWebApp1\MyWebApp1\bin\Debug\net8.0\Microsoft.
 E:\SE_FALL2024_S5\SWP391\PawFund\MyWebApp1\MyWebApp1\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
 E:\SE_FALL2024_S5\SWP391\PawFund\MyWebApp1\MyWebApp1\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
 E:\SE_FALL2024_S5\SWP391\PawFund\MyWebApp1\MyWebApp1\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+E:\SE_FALL2024_S5\SWP391\PawFund\MyWebApp1\MyWebApp1\bin\Debug\net8.0\BCrypt.Net-Core.dll
+E:\SE_FALL2024_S5\SWP391\PawFund\MyWebApp1\MyWebApp1\bin\Debug\net8.0\BCrypt.Net-Next.dll
