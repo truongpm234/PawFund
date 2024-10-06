@@ -88,26 +88,26 @@ namespace MyWebApp1.Migrations
                     table.PrimaryKey("PK_TransactionTypes", x => x.TransactionTypeId);
                 });
 
-            //migrationBuilder.CreateTable(
-            //    name: "User",
-            //    columns: table => new
-            //    {
-            //        UserId = table.Column<int>(type: "int", nullable: false)
-            //            .Annotation("SqlServer:Identity", "1, 1"),
-            //        Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
-            //        Fullname = table.Column<string>(type: "nvarchar(max)", nullable: false),
-            //        Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-            //        PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-            //        Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
-            //        IsApprovedUser = table.Column<bool>(type: "bit", nullable: false),
-            //        IsApproved = table.Column<bool>(type: "bit", nullable: false),
-            //        Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-            //        CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
-            //    },
-            //    constraints: table =>
-            //    {
-            //        table.PrimaryKey("PK_User", x => x.UserId);
-            //    });
+            migrationBuilder.CreateTable(
+                name: "User",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Fullname = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsApprovedUser = table.Column<bool>(type: "bit", nullable: false),
+                    IsApproved = table.Column<bool>(type: "bit", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_User", x => x.UserId);
+                });
 
             migrationBuilder.CreateTable(
                 name: "PetImages",
