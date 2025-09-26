@@ -1,7 +1,7 @@
 # 🐾 PawFund Platform
 
-PawFund là nền tảng web hỗ trợ nhận nuôi và gây quỹ cho các động vật bị bỏ rơi hoặc trong các trại cứu hộ.  
-Người dùng có thể đăng ký, gửi đơn xin nhận nuôi, quản lý danh sách thú cưng, quyên góp và nhiều tính năng khác.
+PawFund is a web platform that supports adoption and fundraising for abandoned or shelter animals.
+Users can register, submit adoption applications, manage pet listings, donate, and more.
 
 ---
 
