@@ -53,23 +53,6 @@ Users can register, submit adoption applications, manage pet listings, donate, a
 
 ---
 
-### 📡 API Endpoints Overview
-
-| Endpoint                   | Method | Description                        | Roles Allowed              |
-|----------------------------|--------|----------------------------------|----------------------------|
-| `/api/auth/register`        | POST   | Register a new user              | Guest                      |
-| `/api/auth/login`           | POST   | User login                      | Guest                      |
-| `/api/pets`                 | GET    | List all available pets          | All                        |
-| `/api/pets`                 | POST   | Add a new pet listing            | Shelter Staff, Admin       |
-| `/api/adoptions`            | POST   | Submit adoption request          | Adopter                    |
-| `/api/adoptions/approve`    | POST   | Approve or deny adoption request | Admin                      |
-| `/api/donations`            | POST   | Make a donation                  | Logged-in users            |
-| ...                        | ...    | ...                              | ...                        |
-
-> For detailed API docs, please refer to Swagger UI.
-
----
-
 ### 🤝 Contributing
 
 We welcome contributions!  
